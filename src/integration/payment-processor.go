@@ -1,0 +1,42 @@
+package integration
+
+import (
+	"bytes"
+	"encoding/json"
+	"net/http"
+	"time"
+
+	"github.com/mathesukkj/rinha-de-backend-2025/src/models"
+)
+
+func CreatePayment(request models.CreatePaymentRequest) error {
+	request.RequestedAt = time.Now()
+
+	json, err := json.Marshal(request)
+	if err != nil {
+		return err
+	}
+
+	resp, err := http.Post("http://localhost:8001/payments", "application/json", bytes.NewBuffer(json))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	return nil
+}
+
+func HealthCheck() error {
+	resp, err := http.Get("http://localhost:8001/service-health")
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	var response models.ServiceHealthResponse
+	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
+		return err
+	}
+
+	return nil
+}

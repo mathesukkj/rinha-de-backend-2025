@@ -8,7 +8,7 @@ import (
 	"github.com/mathesukkj/rinha-de-backend-2025/src/models"
 )
 
-func HandleCreatePayment(w http.ResponseWriter, r *http.Request) {
+func (api *API) HandleCreatePayment(w http.ResponseWriter, r *http.Request) {
 	var request models.CreatePaymentRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

@@ -3,10 +3,20 @@ package api
 import (
 	"log"
 	"net/http"
+
+	"github.com/mathesukkj/rinha-de-backend-2025/src/db"
 )
 
-func Start() {
-	router := NewRouter()
+type API struct {
+	db *db.DB
+}
+
+func NewAPI(db *db.DB) *API {
+	return &API{db: db}
+}
+
+func (api *API) Start() {
+	router := NewRouter(api)
 
 	server := &http.Server{
 		Addr:    ":9999",

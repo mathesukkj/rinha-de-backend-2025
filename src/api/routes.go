@@ -11,14 +11,14 @@ type Router struct {
 	router *http.ServeMux
 }
 
-func NewRouter() *http.ServeMux {
+func NewRouter(api *API) *http.ServeMux {
 	router := http.NewServeMux()
-	RegisterRoutes(router)
+	RegisterRoutes(router, api)
 
 	return router
 }
 
-func RegisterRoutes(router *http.ServeMux) {
-	router.HandleFunc(CreatePaymentsPath, HandleCreatePayment)
+func RegisterRoutes(router *http.ServeMux, api *API) {
+	router.HandleFunc(CreatePaymentsPath, api.HandleCreatePayment)
 	// router.HandleFunc(PaymentsSummaryPath, HandlePaymentsSummary)
 }

@@ -4,14 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http"
-	"time"
 
 	"github.com/mathesukkj/rinha-de-backend-2025/src/models"
 )
 
 func CreatePayment(request models.CreatePaymentRequest) error {
-	request.RequestedAt = time.Now()
-
 	json, err := json.Marshal(request)
 	if err != nil {
 		return err

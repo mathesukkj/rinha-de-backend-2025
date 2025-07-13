@@ -2,6 +2,6 @@
 
 create table payments (
   correlation_id uuid primary key,
-  amount integer not null,
+  amount decimal(10, 2) not null,
   created_at timestamp not null
 );

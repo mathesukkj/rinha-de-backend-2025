@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	_ "github.com/lib/pq"
+	"github.com/mathesukkj/rinha-de-backend-2025/src/models"
 )
 
 type DB struct {
@@ -17,4 +18,18 @@ func LoadDB() (*DB, error) {
 	}
 
 	return &DB{db: db}, nil
+}
+
+func (db *DB) CreatePayment(payment *models.CreatePaymentRequest) error {
+	query := `
+		INSERT INTO payments (correlation_id, amount, created_at)
+		VALUES ($1, $2, $3)
+	`
+
+	_, err := db.db.Exec(query, payment.CorrelationID, payment.Amount, payment.RequestedAt)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

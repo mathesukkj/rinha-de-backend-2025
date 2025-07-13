@@ -1,4 +1,12 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 9999:9999
+    networks:
+      - payment-processor
   payment-processor-1:
     image: zanfranceschi/payment-processor
     networks:

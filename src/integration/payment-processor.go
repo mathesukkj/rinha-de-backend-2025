@@ -17,7 +17,7 @@ func CreatePayment(request models.CreatePaymentRequest) error {
 		return err
 	}
 
-	resp, err := http.Post("http://localhost:8001/payments", "application/json", bytes.NewBuffer(json))
+	resp, err := http.Post("http://payment-processor-default:8080/payments", "application/json", bytes.NewBuffer(json))
 	if err != nil {
 		return err
 	}
